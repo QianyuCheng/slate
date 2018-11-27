@@ -1,14 +1,12 @@
 ---
-title: API Reference
+title: API Reference for Article Recommendation
 
 language_tabs: # must be one of https://git.io/vQNgJ
-  - shell
-  - ruby
   - python
-  - javascript
+
 
 toc_footers:
-  - <a href='#'>Sign Up for a Developer Key</a>
+  - <a href='#'>Ask Neptune Team for a API Key</a>
   - <a href='https://github.com/lord/slate'>Documentation Powered by Slate</a>
 
 includes:
@@ -19,221 +17,179 @@ search: true
 
 # Introduction
 
-Welcome to the Kittn API! You can use our API to access Kittn API endpoints, which can get information on various cats, kittens, and breeds in our database.
+Welcome to the Northwestern Mutual LearnVest Article Recommendation API! You can use our API to access Recommender API endpoints, which can get article recommendations based on the articles store in Neptune Content API. 
 
-We have language bindings in Shell, Ruby, Python, and JavaScript! You can view code examples in the dark area to the right, and you can switch the programming language of the examples with the tabs in the top right.
+We have language bindings Python, you can view code examples in the dark area to the right.
 
-This example API documentation page was created with [Slate](https://github.com/lord/slate). Feel free to edit it and use it as a base for your own API's documentation.
+This API documentation page was created with [Slate](https://github.com/lord/slate).
 
 # Authentication
 
 > To authorize, use this code:
 
-```ruby
-require 'kittn'
-
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-```
-
 ```python
 import kittn
 
-api = kittn.authorize('meowmeowmeow')
+api = kittn.authorize('include-api-key-here')
 ```
 
-```shell
-# With shell, you can just pass the correct header with each request
-curl "api_endpoint_here"
-  -H "Authorization: meowmeowmeow"
-```
+> Make sure to replace `include-api-key-here` with your API key.
 
-```javascript
-const kittn = require('kittn');
+Recommender uses API keys to allow access to the API. Neptune Team created all the API keys for us and since right now Recommender API is only used by Neptune Team, the API keys are not distributed here. 
 
-let api = kittn.authorize('meowmeowmeow');
-```
+Recommender expects for the API key to be included in all API requests to the server in a header that looks like the following:
 
-> Make sure to replace `meowmeowmeow` with your API key.
-
-Kittn uses API keys to allow access to the API. You can register a new Kittn API key at our [developer portal](http://example.com/developers).
-
-Kittn expects for the API key to be included in all API requests to the server in a header that looks like the following:
-
-`Authorization: meowmeowmeow`
+`apikey: include-api-key-here`
 
 <aside class="notice">
-You must replace <code>meowmeowmeow</code> with your personal API key.
+You must replace <code>include-api-key-here</code> with Recommender API key.
 </aside>
 
-# Kittens
+# Endpoints
 
-## Get All Kittens
-
-```ruby
-require 'kittn'
-
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-api.kittens.get
-```
+## Get Recommended Articles By Article ID
 
 ```python
-import kittn
+import requests
+headers = {
+        'apikey': 'include-api-key-here',
+    }
 
-api = kittn.authorize('meowmeowmeow')
-api.kittens.get()
+params = (
+    ('organization','LV'),
+    ('article_id','feac293f-d095-4e73-83e2-6e9deae638f9'),
+    ('num_of_rec','5')
+)
+
+response = requests.get('https://api-int.nmlv.nml.com/api/v1/nmlv-article-recommender/tfidf_recommend', params=params, headers = headers)
+
+recommended_json = json.loads(response.content)
 ```
 
-```shell
-curl "http://example.com/api/kittens"
-  -H "Authorization: meowmeowmeow"
-```
-
-```javascript
-const kittn = require('kittn');
-
-let api = kittn.authorize('meowmeowmeow');
-let kittens = api.kittens.get();
-```
-
-> The above command returns JSON structured like this:
+> The above command returns JSON structured : Json of num_of_rec articles that are most similar to the article that belongs to the article_id. 
 
 ```json
-[
-  {
-    "id": 1,
-    "name": "Fluffums",
-    "breed": "calico",
-    "fluffiness": 6,
-    "cuteness": 7
-  },
-  {
-    "id": 2,
-    "name": "Max",
-    "breed": "unknown",
-    "fluffiness": 5,
-    "cuteness": 10
-  }
-]
+{
+    "0": {
+        "id": "feac293f-d095-4e73-83e2-6e9deae638f9",
+        "similarity_score": 1,
+        "text": "HOW I WENT BANKRUPT AT 23.\n For as long as I can remember, my father warned me about the dangers of credit cards..."
+    },
+    "1": {
+        "id": "87599c2e-ea76-4136-9d66-edb443ed083e",
+        "similarity_score": 0.36307323604179664,
+        "text": "HOW MANY CREDIT CARDS SHOULD I GET?.\n Take a look at your wallet. If you’re like most Americans, you have a credit card or two (or three) to your name..."
+    },
+    "2": {
+        "id": "13296d2f-91e0-4925-8dab-1fed7b605103",
+        "similarity_score": 0.34950453457934527,
+        "text": "WHAT TO KNOW BEFORE OPENING YOUR FIRST CREDIT CARD.\n I didn’t get my first credit card until after I graduated college..."
+    },
+    "3": {
+        "id": "abf1f974-09d0-4895-9125-5ec3a6b4fc73",
+        "similarity_score": 0.30905705116686355,
+        "text": "7 CREDIT CARD TERMS TO KNOW BEFORE YOU SWIPE .\n It’s unlikely that a day goes by where you don’t reach for your credit card.\nBut how many of us truly understand all the basics before we apply for new cards?..."
+    },
+    "4": {
+        "id": "0eab66f9-4413-4cf2-8005-05c0bf182303",
+        "similarity_score": 0.2937517603460955,
+        "text": "I MAXED OUT A $10K CREDIT CARD WHEN I WAS 18 — AND SPENT MY 20S PAYING FOR IT.\n We all have regrets ..."
+    }
+}
 ```
 
-This endpoint retrieves all kittens.
+This endpoint recommended five articles from either Northwestern Mutual or LearnVest, depends on which organization parameter and article id you passed in. For testing purpose, the first article will always be the article that has the id that passed in. 
 
 ### HTTP Request
 
-`GET http://example.com/api/kittens`
+`GET https://api-int.nmlv.nml.com/api/v1/nmlv-article-recommender/tfidf_recommend`
+
+
+`GET https://api-qa.nmlv.nml.com/api/v1/nmlv-article-recommender/tfidf_recommend`
 
 ### Query Parameters
 
 Parameter | Default | Description
 --------- | ------- | -----------
-include_cats | false | If set to true, the result will also include cats.
-available | true | If set to false, the result will include kittens that have already been adopted.
+organization | NM | The organization of articles that the recommender returns. The values to pass in could be either 'NM' or 'LV', which represent articles from Northwestern Mutual and LearnVest.
+article_id | No Default | The Neptune article ID that represents a unique ID assigned to article.
+num_of_rec | 5 | The number of recommendation that the recommender gave out. The number of recommendation could be either 1 to 20 (The maximum number could be changed if needed)
 
 <aside class="success">
-Remember — a happy kitten is an authenticated kitten!
+Remember — Only use the id of the article that exists in Northwestern Mutual or LearnVest published article. The CMS article id is stored in NEPTUNE_CONTENT_API, and this endpoint would interact with NEPTUNE_CONTENT_API to get recommended articles
 </aside>
 
-## Get a Specific Kitten
+### Output Json Keys
 
-```ruby
-require 'kittn'
+Keys | Description
+--------- | -----------
+id | ID of the articles that are recommended. 
+similarity_score | The cosine similarity score of the recommended article's bag of words with the object article's bag of words (between 0 to 1, with 1 the most similar and 0 not similar at all
+text |Content of the article recommended, for testing purpose, might be removed in the future. 
 
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-api.kittens.get(2)
-```
+
+
+## POST Article Json and Return Recommender Articles
 
 ```python
-import kittn
+import requests
+headers = {
+        'apikey': 'include-api-key-here',
+        'Content-Type':'application/json',
+        'Accepts': 'application/json'
+    }
 
-api = kittn.authorize('meowmeowmeow')
-api.kittens.get(2)
+params = (
+    ('organization','LV'),
+    ('num_of_rec','5')
+)
+
+article_json = 'the-article-json-from-Neptune-content-api'
+
+response = requests.post('https://api-int.nmlv.nml.com/api/v1/nmlv-article-recommender/tfidf_recommend', params=params, json=article_json, headers = headers)
+
+recommended_json = json.loads(response.content)
 ```
 
-```shell
-curl "http://example.com/api/kittens/2"
-  -H "Authorization: meowmeowmeow"
-```
-
-```javascript
-const kittn = require('kittn');
-
-let api = kittn.authorize('meowmeowmeow');
-let max = api.kittens.get(2);
-```
 
 > The above command returns JSON structured like this:
 
 ```json
 {
-  "id": 2,
-  "name": "Max",
-  "breed": "unknown",
-  "fluffiness": 5,
-  "cuteness": 10
+    "0": {
+        "id": "feac293f-d095-4e73-83e2-6e9deae638f9",
+        "similarity_score": 1,
+        "text": "HOW I WENT BANKRUPT AT 23.\n For as long as I can remember, my father warned me about the dangers of credit cards..."
+    },
+    "1": {
+        "id": "87599c2e-ea76-4136-9d66-edb443ed083e",
+        "similarity_score": 0.36307323604179664,
+        "text": "HOW MANY CREDIT CARDS SHOULD I GET?.\n Take a look at your wallet. If you’re like most Americans, you have a credit card or two (or three) to your name..."
+    },
+    "2": {
+        "id": "13296d2f-91e0-4925-8dab-1fed7b605103",
+        "similarity_score": 0.34950453457934527,
+        "text": "WHAT TO KNOW BEFORE OPENING YOUR FIRST CREDIT CARD.\n I didn’t get my first credit card until after I graduated college..."
+    },
+    "3": {
+        "id": "abf1f974-09d0-4895-9125-5ec3a6b4fc73",
+        "similarity_score": 0.30905705116686355,
+        "text": "7 CREDIT CARD TERMS TO KNOW BEFORE YOU SWIPE .\n It’s unlikely that a day goes by where you don’t reach for your credit card.\nBut how many of us truly understand all the basics before we apply for new cards?..."
+    },
+    "4": {
+        "id": "0eab66f9-4413-4cf2-8005-05c0bf182303",
+        "similarity_score": 0.2937517603460955,
+        "text": "I MAXED OUT A $10K CREDIT CARD WHEN I WAS 18 — AND SPENT MY 20S PAYING FOR IT.\n We all have regrets ..."
+    }
 }
+
 ```
 
-This endpoint retrieves a specific kitten.
-
-<aside class="warning">Inside HTML code blocks like this one, you can't use Markdown, so use <code>&lt;code&gt;</code> blocks to denote code.</aside>
+This endpoint recommended five articles from either Northwestern Mutual or LearnVest, depends on which organization parameter and article JSON you passed in. For testing purpose, the first article will always be the article that has the id that passed in. 
 
 ### HTTP Request
 
-`GET http://example.com/kittens/<ID>`
+`POST https://api-int.nmlv.nml.com/api/v1/nmlv-article-recommender/tfidf_recommend`
 
-### URL Parameters
 
-Parameter | Description
---------- | -----------
-ID | The ID of the kitten to retrieve
-
-## Delete a Specific Kitten
-
-```ruby
-require 'kittn'
-
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-api.kittens.delete(2)
-```
-
-```python
-import kittn
-
-api = kittn.authorize('meowmeowmeow')
-api.kittens.delete(2)
-```
-
-```shell
-curl "http://example.com/api/kittens/2"
-  -X DELETE
-  -H "Authorization: meowmeowmeow"
-```
-
-```javascript
-const kittn = require('kittn');
-
-let api = kittn.authorize('meowmeowmeow');
-let max = api.kittens.delete(2);
-```
-
-> The above command returns JSON structured like this:
-
-```json
-{
-  "id": 2,
-  "deleted" : ":("
-}
-```
-
-This endpoint deletes a specific kitten.
-
-### HTTP Request
-
-`DELETE http://example.com/kittens/<ID>`
-
-### URL Parameters
-
-Parameter | Description
---------- | -----------
-ID | The ID of the kitten to delete
-
+`POST https://api-int.nmlv.nml.com/api/v1/nmlv-article-recommender/tfidf_recommend`
