@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <title>API Reference</title>
+    <title>API Reference for Article Recommendation</title>
 
     <style>
       .highlight table td { padding: 5px; }
@@ -201,7 +201,7 @@
       <script src="javascripts/all.js"></script>
   </head>
 
-  <body class="index" data-languages="[&quot;shell&quot;,&quot;ruby&quot;,&quot;python&quot;,&quot;javascript&quot;]">
+  <body class="index" data-languages="[&quot;python&quot;]">
     <a href="#" id="nav-button">
       <span>
         NAV
@@ -211,10 +211,7 @@
     <div class="toc-wrapper">
       <img src="images/logo.png" class="logo" alt="Logo" />
         <div class="lang-selector">
-              <a href="#" data-language-name="shell">shell</a>
-              <a href="#" data-language-name="ruby">ruby</a>
               <a href="#" data-language-name="python">python</a>
-              <a href="#" data-language-name="javascript">javascript</a>
         </div>
         <div class="search">
           <input type="text" class="search" id="input-search" placeholder="Search">
@@ -228,16 +225,13 @@
             <a href="#authentication" class="toc-h1 toc-link" data-title="Authentication">Authentication</a>
           </li>
           <li>
-            <a href="#kittens" class="toc-h1 toc-link" data-title="Kittens">Kittens</a>
+            <a href="#endpoints" class="toc-h1 toc-link" data-title="Endpoints">Endpoints</a>
               <ul class="toc-list-h2">
                   <li>
-                    <a href="#get-all-kittens" class="toc-h2 toc-link" data-title="Get All Kittens">Get All Kittens</a>
+                    <a href="#get-recommended-articles-by-article-id" class="toc-h2 toc-link" data-title="Get Recommended Articles By Article ID">Get Recommended Articles By Article ID</a>
                   </li>
                   <li>
-                    <a href="#get-a-specific-kitten" class="toc-h2 toc-link" data-title="Get a Specific Kitten">Get a Specific Kitten</a>
-                  </li>
-                  <li>
-                    <a href="#delete-a-specific-kitten" class="toc-h2 toc-link" data-title="Delete a Specific Kitten">Delete a Specific Kitten</a>
+                    <a href="#post-article-json-and-return-recommender-articles" class="toc-h2 toc-link" data-title="POST Article Json and Return Recommender Articles">POST Article Json and Return Recommender Articles</a>
                   </li>
               </ul>
           </li>
@@ -246,7 +240,7 @@
           </li>
       </ul>
         <ul class="toc-footer">
-            <li><a href='#'>Sign Up for a Developer Key</a></li>
+            <li><a href='#'>Ask Neptune Team for a API Key</a></li>
             <li><a href='https://github.com/lord/slate'>Documentation Powered by Slate</a></li>
         </ul>
     </div>
@@ -254,79 +248,83 @@
       <div class="dark-box"></div>
       <div class="content">
         <h1 id='introduction'>Introduction</h1>
-<p>Welcome to the Kittn API! You can use our API to access Kittn API endpoints, which can get information on various cats, kittens, and breeds in our database.</p>
+<p>Welcome to the Northwestern Mutual LearnVest Article Recommendation API! You can use our API to access Recommender API endpoints, which can get article recommendations based on the articles store in Neptune Content API. </p>
 
-<p>We have language bindings in Shell, Ruby, Python, and JavaScript! You can view code examples in the dark area to the right, and you can switch the programming language of the examples with the tabs in the top right.</p>
+<p>We have language bindings Python, you can view code examples in the dark area to the right.</p>
 
-<p>This example API documentation page was created with <a href="https://github.com/lord/slate">Slate</a>. Feel free to edit it and use it as a base for your own API&#39;s documentation.</p>
+<p>This API documentation page was created with <a href="https://github.com/lord/slate">Slate</a>.</p>
 <h1 id='authentication'>Authentication</h1>
 <blockquote>
 <p>To authorize, use this code:</p>
 </blockquote>
-<pre class="highlight ruby tab-ruby"><code><span class="nb">require</span> <span class="s1">'kittn'</span>
+<pre class="highlight python tab-python"><code><span class="kn">import</span> <span class="nn">kittn</span>
 
-<span class="n">api</span> <span class="o">=</span> <span class="no">Kittn</span><span class="o">::</span><span class="no">APIClient</span><span class="p">.</span><span class="nf">authorize!</span><span class="p">(</span><span class="s1">'meowmeowmeow'</span><span class="p">)</span>
-</code></pre><pre class="highlight python tab-python"><code><span class="kn">import</span> <span class="nn">kittn</span>
-
-<span class="n">api</span> <span class="o">=</span> <span class="n">kittn</span><span class="o">.</span><span class="n">authorize</span><span class="p">(</span><span class="s">'meowmeowmeow'</span><span class="p">)</span>
-</code></pre><pre class="highlight shell tab-shell"><code><span class="c"># With shell, you can just pass the correct header with each request</span>
-curl <span class="s2">"api_endpoint_here"</span>
-  -H <span class="s2">"Authorization: meowmeowmeow"</span>
-</code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">const</span> <span class="nx">kittn</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'kittn'</span><span class="p">);</span>
-
-<span class="kd">let</span> <span class="nx">api</span> <span class="o">=</span> <span class="nx">kittn</span><span class="p">.</span><span class="nx">authorize</span><span class="p">(</span><span class="s1">'meowmeowmeow'</span><span class="p">);</span>
+<span class="n">api</span> <span class="o">=</span> <span class="n">kittn</span><span class="o">.</span><span class="n">authorize</span><span class="p">(</span><span class="s">'include-api-key-here'</span><span class="p">)</span>
 </code></pre>
 <blockquote>
-<p>Make sure to replace <code>meowmeowmeow</code> with your API key.</p>
+<p>Make sure to replace <code>include-api-key-here</code> with your API key.</p>
 </blockquote>
 
-<p>Kittn uses API keys to allow access to the API. You can register a new Kittn API key at our <a href="http://example.com/developers">developer portal</a>.</p>
+<p>Recommender uses API keys to allow access to the API. Neptune Team created all the API keys for us and since right now Recommender API is only used by Neptune Team, the API keys are not distributed here. </p>
 
-<p>Kittn expects for the API key to be included in all API requests to the server in a header that looks like the following:</p>
+<p>Recommender expects for the API key to be included in all API requests to the server in a header that looks like the following:</p>
 
-<p><code>Authorization: meowmeowmeow</code></p>
+<p><code>apikey: include-api-key-here</code></p>
 
 <aside class="notice">
-You must replace <code>meowmeowmeow</code> with your personal API key.
+You must replace <code>include-api-key-here</code> with Recommender API key.
 </aside>
-<h1 id='kittens'>Kittens</h1><h2 id='get-all-kittens'>Get All Kittens</h2><pre class="highlight ruby tab-ruby"><code><span class="nb">require</span> <span class="s1">'kittn'</span>
+<h1 id='endpoints'>Endpoints</h1><h2 id='get-recommended-articles-by-article-id'>Get Recommended Articles By Article ID</h2><pre class="highlight python tab-python"><code><span class="kn">import</span> <span class="nn">requests</span>
+<span class="n">headers</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s">'apikey'</span><span class="p">:</span> <span class="s">'include-api-key-here'</span><span class="p">,</span>
+    <span class="p">}</span>
 
-<span class="n">api</span> <span class="o">=</span> <span class="no">Kittn</span><span class="o">::</span><span class="no">APIClient</span><span class="p">.</span><span class="nf">authorize!</span><span class="p">(</span><span class="s1">'meowmeowmeow'</span><span class="p">)</span>
-<span class="n">api</span><span class="p">.</span><span class="nf">kittens</span><span class="p">.</span><span class="nf">get</span>
-</code></pre><pre class="highlight python tab-python"><code><span class="kn">import</span> <span class="nn">kittn</span>
+<span class="n">params</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="p">(</span><span class="s">'organization'</span><span class="p">,</span><span class="s">'LV'</span><span class="p">),</span>
+    <span class="p">(</span><span class="s">'article_id'</span><span class="p">,</span><span class="s">'feac293f-d095-4e73-83e2-6e9deae638f9'</span><span class="p">),</span>
+    <span class="p">(</span><span class="s">'num_of_rec'</span><span class="p">,</span><span class="s">'5'</span><span class="p">)</span>
+<span class="p">)</span>
 
-<span class="n">api</span> <span class="o">=</span> <span class="n">kittn</span><span class="o">.</span><span class="n">authorize</span><span class="p">(</span><span class="s">'meowmeowmeow'</span><span class="p">)</span>
-<span class="n">api</span><span class="o">.</span><span class="n">kittens</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
-</code></pre><pre class="highlight shell tab-shell"><code>curl <span class="s2">"http://example.com/api/kittens"</span>
-  -H <span class="s2">"Authorization: meowmeowmeow"</span>
-</code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">const</span> <span class="nx">kittn</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'kittn'</span><span class="p">);</span>
+<span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">'https://api-int.nmlv.nml.com/api/v1/nmlv-article-recommender/tfidf_recommend'</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span> <span class="n">headers</span> <span class="o">=</span> <span class="n">headers</span><span class="p">)</span>
 
-<span class="kd">let</span> <span class="nx">api</span> <span class="o">=</span> <span class="nx">kittn</span><span class="p">.</span><span class="nx">authorize</span><span class="p">(</span><span class="s1">'meowmeowmeow'</span><span class="p">);</span>
-<span class="kd">let</span> <span class="nx">kittens</span> <span class="o">=</span> <span class="nx">api</span><span class="p">.</span><span class="nx">kittens</span><span class="p">.</span><span class="nx">get</span><span class="p">();</span>
+<span class="n">recommended_json</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">content</span><span class="p">)</span>
 </code></pre>
 <blockquote>
-<p>The above command returns JSON structured like this:</p>
+<p>The above command returns JSON structured : Json of num_of_rec articles that are most similar to the article that belongs to the article_id. </p>
 </blockquote>
-<pre class="highlight json tab-json"><code><span class="p">[</span><span class="w">
-  </span><span class="p">{</span><span class="w">
-    </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Fluffums"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"breed"</span><span class="p">:</span><span class="w"> </span><span class="s2">"calico"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"fluffiness"</span><span class="p">:</span><span class="w"> </span><span class="mi">6</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"cuteness"</span><span class="p">:</span><span class="w"> </span><span class="mi">7</span><span class="w">
-  </span><span class="p">},</span><span class="w">
-  </span><span class="p">{</span><span class="w">
-    </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Max"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"breed"</span><span class="p">:</span><span class="w"> </span><span class="s2">"unknown"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"fluffiness"</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"cuteness"</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="w">
-  </span><span class="p">}</span><span class="w">
-</span><span class="p">]</span><span class="w">
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="s2">"0"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"feac293f-d095-4e73-83e2-6e9deae638f9"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"similarity_score"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"text"</span><span class="p">:</span><span class="w"> </span><span class="s2">"HOW I WENT BANKRUPT AT 23.</span><span class="se">\n</span><span class="s2"> For as long as I can remember, my father warned me about the dangers of credit cards..."</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="s2">"1"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"87599c2e-ea76-4136-9d66-edb443ed083e"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"similarity_score"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.36307323604179664</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"text"</span><span class="p">:</span><span class="w"> </span><span class="s2">"HOW MANY CREDIT CARDS SHOULD I GET?.</span><span class="se">\n</span><span class="s2"> Take a look at your wallet. If you’re like most Americans, you have a credit card or two (or three) to your name..."</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="s2">"2"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"13296d2f-91e0-4925-8dab-1fed7b605103"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"similarity_score"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.34950453457934527</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"text"</span><span class="p">:</span><span class="w"> </span><span class="s2">"WHAT TO KNOW BEFORE OPENING YOUR FIRST CREDIT CARD.</span><span class="se">\n</span><span class="s2"> I didn’t get my first credit card until after I graduated college..."</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="s2">"3"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"abf1f974-09d0-4895-9125-5ec3a6b4fc73"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"similarity_score"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.30905705116686355</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"text"</span><span class="p">:</span><span class="w"> </span><span class="s2">"7 CREDIT CARD TERMS TO KNOW BEFORE YOU SWIPE .</span><span class="se">\n</span><span class="s2"> It’s unlikely that a day goes by where you don’t reach for your credit card.</span><span class="se">\n</span><span class="s2">But how many of us truly understand all the basics before we apply for new cards?..."</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="s2">"4"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0eab66f9-4413-4cf2-8005-05c0bf182303"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"similarity_score"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.2937517603460955</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"text"</span><span class="p">:</span><span class="w"> </span><span class="s2">"I MAXED OUT A $10K CREDIT CARD WHEN I WAS 18 — AND SPENT MY 20S PAYING FOR IT.</span><span class="se">\n</span><span class="s2"> We all have regrets ..."</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
 </span></code></pre>
-<p>This endpoint retrieves all kittens.</p>
+<p>This endpoint recommended five articles from either Northwestern Mutual or LearnVest, depends on which organization parameter and article id you passed in. For testing purpose, the first article will always be the article that has the id that passed in. </p>
 <h3 id='http-request'>HTTP Request</h3>
-<p><code>GET http://example.com/api/kittens</code></p>
+<p><code>GET https://api-int.nmlv.nml.com/api/v1/nmlv-article-recommender/tfidf_recommend</code></p>
+
+<p><code>GET https://api-qa.nmlv.nml.com/api/v1/nmlv-article-recommender/tfidf_recommend</code></p>
 <h3 id='query-parameters'>Query Parameters</h3>
 <table><thead>
 <tr>
@@ -336,102 +334,100 @@ You must replace <code>meowmeowmeow</code> with your personal API key.
 </tr>
 </thead><tbody>
 <tr>
-<td>include_cats</td>
-<td>false</td>
-<td>If set to true, the result will also include cats.</td>
+<td>organization</td>
+<td>NM</td>
+<td>The organization of articles that the recommender returns. The values to pass in could be either &#39;NM&#39; or &#39;LV&#39;, which represent articles from Northwestern Mutual and LearnVest.</td>
 </tr>
 <tr>
-<td>available</td>
-<td>true</td>
-<td>If set to false, the result will include kittens that have already been adopted.</td>
+<td>article_id</td>
+<td>No Default</td>
+<td>The Neptune article ID that represents a unique ID assigned to article.</td>
+</tr>
+<tr>
+<td>num_of_rec</td>
+<td>5</td>
+<td>The number of recommendation that the recommender gave out. The number of recommendation could be either 1 to 20 (The maximum number could be changed if needed)</td>
 </tr>
 </tbody></table>
 
 <aside class="success">
-Remember — a happy kitten is an authenticated kitten!
+Remember — Only use the id of the article that exists in Northwestern Mutual or LearnVest published article. The CMS article id is stored in NEPTUNE_CONTENT_API, and this endpoint would interact with NEPTUNE_CONTENT_API to get recommended articles
 </aside>
-<h2 id='get-a-specific-kitten'>Get a Specific Kitten</h2><pre class="highlight ruby tab-ruby"><code><span class="nb">require</span> <span class="s1">'kittn'</span>
+<h3 id='output-json-keys'>Output Json Keys</h3>
+<table><thead>
+<tr>
+<th>Keys</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>id</td>
+<td>ID of the articles that are recommended.</td>
+</tr>
+<tr>
+<td>similarity_score</td>
+<td>The cosine similarity score of the recommended article&#39;s bag of words with the object article&#39;s bag of words (between 0 to 1, with 1 the most similar and 0 not similar at all</td>
+</tr>
+<tr>
+<td>text</td>
+<td>Content of the article recommended, for testing purpose, might be removed in the future.</td>
+</tr>
+</tbody></table>
+<h2 id='post-article-json-and-return-recommender-articles'>POST Article Json and Return Recommender Articles</h2><pre class="highlight python tab-python"><code><span class="kn">import</span> <span class="nn">requests</span>
+<span class="n">headers</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s">'apikey'</span><span class="p">:</span> <span class="s">'include-api-key-here'</span><span class="p">,</span>
+        <span class="s">'Content-Type'</span><span class="p">:</span><span class="s">'application/json'</span><span class="p">,</span>
+        <span class="s">'Accepts'</span><span class="p">:</span> <span class="s">'application/json'</span>
+    <span class="p">}</span>
 
-<span class="n">api</span> <span class="o">=</span> <span class="no">Kittn</span><span class="o">::</span><span class="no">APIClient</span><span class="p">.</span><span class="nf">authorize!</span><span class="p">(</span><span class="s1">'meowmeowmeow'</span><span class="p">)</span>
-<span class="n">api</span><span class="p">.</span><span class="nf">kittens</span><span class="p">.</span><span class="nf">get</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-</code></pre><pre class="highlight python tab-python"><code><span class="kn">import</span> <span class="nn">kittn</span>
+<span class="n">params</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="p">(</span><span class="s">'organization'</span><span class="p">,</span><span class="s">'LV'</span><span class="p">),</span>
+    <span class="p">(</span><span class="s">'num_of_rec'</span><span class="p">,</span><span class="s">'5'</span><span class="p">)</span>
+<span class="p">)</span>
 
-<span class="n">api</span> <span class="o">=</span> <span class="n">kittn</span><span class="o">.</span><span class="n">authorize</span><span class="p">(</span><span class="s">'meowmeowmeow'</span><span class="p">)</span>
-<span class="n">api</span><span class="o">.</span><span class="n">kittens</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-</code></pre><pre class="highlight shell tab-shell"><code>curl <span class="s2">"http://example.com/api/kittens/2"</span>
-  -H <span class="s2">"Authorization: meowmeowmeow"</span>
-</code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">const</span> <span class="nx">kittn</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'kittn'</span><span class="p">);</span>
+<span class="n">article_json</span> <span class="o">=</span> <span class="s">'the-article-json-from-Neptune-content-api'</span>
 
-<span class="kd">let</span> <span class="nx">api</span> <span class="o">=</span> <span class="nx">kittn</span><span class="p">.</span><span class="nx">authorize</span><span class="p">(</span><span class="s1">'meowmeowmeow'</span><span class="p">);</span>
-<span class="kd">let</span> <span class="nx">max</span> <span class="o">=</span> <span class="nx">api</span><span class="p">.</span><span class="nx">kittens</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
+<span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="s">'https://api-int.nmlv.nml.com/api/v1/nmlv-article-recommender/tfidf_recommend'</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span> <span class="n">json</span><span class="o">=</span><span class="n">article_json</span><span class="p">,</span> <span class="n">headers</span> <span class="o">=</span> <span class="n">headers</span><span class="p">)</span>
+
+<span class="n">recommended_json</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">content</span><span class="p">)</span>
 </code></pre>
 <blockquote>
 <p>The above command returns JSON structured like this:</p>
 </blockquote>
 <pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Max"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"breed"</span><span class="p">:</span><span class="w"> </span><span class="s2">"unknown"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"fluffiness"</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"cuteness"</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="w">
+    </span><span class="s2">"0"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"feac293f-d095-4e73-83e2-6e9deae638f9"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"similarity_score"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"text"</span><span class="p">:</span><span class="w"> </span><span class="s2">"HOW I WENT BANKRUPT AT 23.</span><span class="se">\n</span><span class="s2"> For as long as I can remember, my father warned me about the dangers of credit cards..."</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="s2">"1"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"87599c2e-ea76-4136-9d66-edb443ed083e"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"similarity_score"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.36307323604179664</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"text"</span><span class="p">:</span><span class="w"> </span><span class="s2">"HOW MANY CREDIT CARDS SHOULD I GET?.</span><span class="se">\n</span><span class="s2"> Take a look at your wallet. If you’re like most Americans, you have a credit card or two (or three) to your name..."</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="s2">"2"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"13296d2f-91e0-4925-8dab-1fed7b605103"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"similarity_score"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.34950453457934527</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"text"</span><span class="p">:</span><span class="w"> </span><span class="s2">"WHAT TO KNOW BEFORE OPENING YOUR FIRST CREDIT CARD.</span><span class="se">\n</span><span class="s2"> I didn’t get my first credit card until after I graduated college..."</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="s2">"3"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"abf1f974-09d0-4895-9125-5ec3a6b4fc73"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"similarity_score"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.30905705116686355</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"text"</span><span class="p">:</span><span class="w"> </span><span class="s2">"7 CREDIT CARD TERMS TO KNOW BEFORE YOU SWIPE .</span><span class="se">\n</span><span class="s2"> It’s unlikely that a day goes by where you don’t reach for your credit card.</span><span class="se">\n</span><span class="s2">But how many of us truly understand all the basics before we apply for new cards?..."</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="s2">"4"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0eab66f9-4413-4cf2-8005-05c0bf182303"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"similarity_score"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.2937517603460955</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"text"</span><span class="p">:</span><span class="w"> </span><span class="s2">"I MAXED OUT A $10K CREDIT CARD WHEN I WAS 18 — AND SPENT MY 20S PAYING FOR IT.</span><span class="se">\n</span><span class="s2"> We all have regrets ..."</span><span class="w">
+    </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
-</span></code></pre>
-<p>This endpoint retrieves a specific kitten.</p>
 
-<aside class="warning">Inside HTML code blocks like this one, you can't use Markdown, so use <code>&lt;code&gt;</code> blocks to denote code.</aside>
+</span></code></pre>
+<p>This endpoint recommended five articles from either Northwestern Mutual or LearnVest, depends on which organization parameter and article JSON you passed in. For testing purpose, the first article will always be the article that has the id that passed in. </p>
 <h3 id='http-request-2'>HTTP Request</h3>
-<p><code>GET http://example.com/kittens/&lt;ID&gt;</code></p>
-<h3 id='url-parameters'>URL Parameters</h3>
-<table><thead>
-<tr>
-<th>Parameter</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>ID</td>
-<td>The ID of the kitten to retrieve</td>
-</tr>
-</tbody></table>
-<h2 id='delete-a-specific-kitten'>Delete a Specific Kitten</h2><pre class="highlight ruby tab-ruby"><code><span class="nb">require</span> <span class="s1">'kittn'</span>
+<p><code>POST https://api-int.nmlv.nml.com/api/v1/nmlv-article-recommender/tfidf_recommend</code></p>
 
-<span class="n">api</span> <span class="o">=</span> <span class="no">Kittn</span><span class="o">::</span><span class="no">APIClient</span><span class="p">.</span><span class="nf">authorize!</span><span class="p">(</span><span class="s1">'meowmeowmeow'</span><span class="p">)</span>
-<span class="n">api</span><span class="p">.</span><span class="nf">kittens</span><span class="p">.</span><span class="nf">delete</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-</code></pre><pre class="highlight python tab-python"><code><span class="kn">import</span> <span class="nn">kittn</span>
-
-<span class="n">api</span> <span class="o">=</span> <span class="n">kittn</span><span class="o">.</span><span class="n">authorize</span><span class="p">(</span><span class="s">'meowmeowmeow'</span><span class="p">)</span>
-<span class="n">api</span><span class="o">.</span><span class="n">kittens</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-</code></pre><pre class="highlight shell tab-shell"><code>curl <span class="s2">"http://example.com/api/kittens/2"</span>
-  -X DELETE
-  -H <span class="s2">"Authorization: meowmeowmeow"</span>
-</code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">const</span> <span class="nx">kittn</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'kittn'</span><span class="p">);</span>
-
-<span class="kd">let</span> <span class="nx">api</span> <span class="o">=</span> <span class="nx">kittn</span><span class="p">.</span><span class="nx">authorize</span><span class="p">(</span><span class="s1">'meowmeowmeow'</span><span class="p">);</span>
-<span class="kd">let</span> <span class="nx">max</span> <span class="o">=</span> <span class="nx">api</span><span class="p">.</span><span class="nx">kittens</span><span class="p">.</span><span class="k">delete</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
-</code></pre>
-<blockquote>
-<p>The above command returns JSON structured like this:</p>
-</blockquote>
-<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"deleted"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">":("</span><span class="w">
-</span><span class="p">}</span><span class="w">
-</span></code></pre>
-<p>This endpoint deletes a specific kitten.</p>
-<h3 id='http-request-3'>HTTP Request</h3>
-<p><code>DELETE http://example.com/kittens/&lt;ID&gt;</code></p>
-<h3 id='url-parameters-2'>URL Parameters</h3>
-<table><thead>
-<tr>
-<th>Parameter</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>ID</td>
-<td>The ID of the kitten to delete</td>
-</tr>
-</tbody></table>
+<p><code>POST https://api-int.nmlv.nml.com/api/v1/nmlv-article-recommender/tfidf_recommend</code></p>
 <h1 id='errors'>Errors</h1>
 <aside class="notice">
 This error section is stored in a separate file in <code>includes/_errors.md</code>. Slate allows you to optionally separate out your docs into many files...just save them to the <code>includes</code> folder and add them to the top of your <code>index.md</code>'s frontmatter. Files are included in the order listed.
@@ -494,10 +490,7 @@ This error section is stored in a separate file in <code>includes/_errors.md</co
       </div>
       <div class="dark-box">
           <div class="lang-selector">
-                <a href="#" data-language-name="shell">shell</a>
-                <a href="#" data-language-name="ruby">ruby</a>
                 <a href="#" data-language-name="python">python</a>
-                <a href="#" data-language-name="javascript">javascript</a>
           </div>
       </div>
     </div>
