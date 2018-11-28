@@ -184,6 +184,25 @@ This endpoint recommended five articles from either Northwestern Mutual or Learn
 
 `POST https://api-int.nmlv.nml.com/api/v1/nmlv-article-recommender/tfidf_recommend`
 
+### Query Parameters
+
+Parameter | Default | Description
+--------- | ------- | -----------
+organization | NM | The organization of articles that the recommender returns. The values to pass in could be either 'NM' or 'LV', which represent articles from Northwestern Mutual and LearnVest.
+num_of_rec | 5 | The number of recommendation that the recommender gave out. The number of recommendation could be either 1 to 20 (The maximum number could be changed if needed)
+
+<aside class="success">
+Remember — to include Content-Type and Accepts as application/json in the headers.
+</aside>
+
+### Output Json Keys
+
+Keys | Description
+--------- | -----------
+id | ID of the articles that are recommended. 
+similarity_score | The cosine similarity score of the recommended article's bag of words with the object article's bag of words (between 0 to 1, with 1 the most similar and 0 not similar at all
+text |Content of the article recommended, for testing purpose, might be removed in the future. 
+
 ## articleRec User Interface Debugging Site
 
 The UI that will have drop down of the headlines of the articles in Northwestern Mutual. Choosing one and click the button 'get recommendation', 5 most similar articles' headlines and the similarity scores will show up.
