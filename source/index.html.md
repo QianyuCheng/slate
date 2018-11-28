@@ -4,7 +4,6 @@ title: API Reference for Article Recommendation
 language_tabs: # must be one of https://git.io/vQNgJ
   - python
 
-
 toc_footers:
   - <a href='#'>Ask Neptune Team for a API Key</a>
   - <a href='https://github.com/lord/slate'>Documentation Powered by Slate</a>
@@ -17,7 +16,7 @@ search: true
 
 # Introduction
 
-Welcome to the Northwestern Mutual LearnVest Article Recommendation API! You can use our API to access Recommender API endpoints, which can get article recommendations based on the articles store in Neptune Content API. 
+Welcome to the Northwestern Mutual LearnVest Article Recommendation API! You can use our API to access Recommender POST/GET endpoints, which can get article recommendations based on the articles id or article JSON in Neptune Content API. Two UI debugging sites are also available to use to demonstrate the result of recommendations.
 
 We have language bindings Python, you can view code examples in the dark area to the right.
 
