@@ -233,6 +233,15 @@
                   <li>
                     <a href="#post-article-json-and-return-recommender-articles" class="toc-h2 toc-link" data-title="POST Article Json and Return Recommender Articles">POST Article Json and Return Recommender Articles</a>
                   </li>
+                  <li>
+                    <a href="#articlerec-user-interface-debugging-site" class="toc-h2 toc-link" data-title="articleRec User Interface Debugging Site">articleRec User Interface Debugging Site</a>
+                  </li>
+                  <li>
+                    <a href="#textboxrec-user-interface-debugging-site" class="toc-h2 toc-link" data-title="textboxRec User Interface Debugging Site">textboxRec User Interface Debugging Site</a>
+                  </li>
+                  <li>
+                    <a href="#notifyme-endpoint-to-register-with-neptune-content-api" class="toc-h2 toc-link" data-title="notifyme Endpoint to register with Neptune content API">notifyme Endpoint to register with Neptune content API</a>
+                  </li>
               </ul>
           </li>
           <li>
@@ -254,17 +263,6 @@
 
 <p>This API documentation page was created with <a href="https://github.com/lord/slate">Slate</a>.</p>
 <h1 id='authentication'>Authentication</h1>
-<blockquote>
-<p>To authorize, use this code:</p>
-</blockquote>
-<pre class="highlight python tab-python"><code><span class="kn">import</span> <span class="nn">kittn</span>
-
-<span class="n">api</span> <span class="o">=</span> <span class="n">kittn</span><span class="o">.</span><span class="n">authorize</span><span class="p">(</span><span class="s">'include-api-key-here'</span><span class="p">)</span>
-</code></pre>
-<blockquote>
-<p>Make sure to replace <code>include-api-key-here</code> with your API key.</p>
-</blockquote>
-
 <p>Recommender uses API keys to allow access to the API. Neptune Team created all the API keys for us and since right now Recommender API is only used by Neptune Team, the API keys are not distributed here. </p>
 
 <p>Recommender expects for the API key to be included in all API requests to the server in a header that looks like the following:</p>
@@ -428,12 +426,30 @@ Remember — Only use the id of the article that exists in Northwestern Mutual o
 <p><code>POST https://api-int.nmlv.nml.com/api/v1/nmlv-article-recommender/tfidf_recommend</code></p>
 
 <p><code>POST https://api-int.nmlv.nml.com/api/v1/nmlv-article-recommender/tfidf_recommend</code></p>
+<h2 id='articlerec-user-interface-debugging-site'>articleRec User Interface Debugging Site</h2>
+<p>The UI that will have drop down of the headlines of the articles in Northwestern Mutual. Choosing one and click the button &#39;get recommendation&#39;, 5 most similar articles&#39; headlines and the similarity scores will show up.</p>
+<h3 id='http'>HTTP</h3>
+<p><code>https://api-int.nmlv.nml.com/api/v1/nmlv-article-recommender/articleRec</code></p>
+
+<p><code>https://api-int.nmlv.nml.com/api/v1/nmlv-article-recommender/articleRec</code></p>
+<h2 id='textboxrec-user-interface-debugging-site'>textboxRec User Interface Debugging Site</h2>
+<p>The UI that will have a textbox for inputing. Input the body of the article and click the button &#39;get recommendation&#39;, 5 most similar articles&#39; headlines and the similarity scores will show up.</p>
+<h3 id='http-2'>HTTP</h3>
+<p>INT: <code>https://api-int.nmlv.nml.com/api/v1/nmlv-article-recommender/textboxRec</code></p>
+
+<p>QA: <code>https://api-qa.nmlv.nml.com/api/v1/nmlv-article-recommender/textboxRec</code></p>
+<h2 id='notifyme-endpoint-to-register-with-neptune-content-api'>notifyme Endpoint to register with Neptune content API</h2>
+<p>When <code>notifyme</code> endpoint is called by <code>content-api/destination</code>, and the body of the request has <code>contentType: article</code>, the endpoint will re-fetch data and return immediately with the JSON input for debugging purposes. The endpoint will fit model in the background using thread.</p>
+<h3 id='http-3'>HTTP</h3>
+<p><code>https://api-int.nmlv.nml.com/api/v1/nmlv-article-recommender/notifyme</code></p>
+
+<p><code>https://api-qa.nmlv.nml.com/api/v1/nmlv-article-recommender/notifyme</code></p>
 <h1 id='errors'>Errors</h1>
 <aside class="notice">
-This error section is stored in a separate file in <code>includes/_errors.md</code>. Slate allows you to optionally separate out your docs into many files...just save them to the <code>includes</code> folder and add them to the top of your <code>index.md</code>'s frontmatter. Files are included in the order listed.
+This error section is in building process.
 </aside>
 
-<p>The Kittn API uses the following error codes:</p>
+<p>The Recommender API uses the following error codes:</p>
 
 <table><thead>
 <tr>
@@ -451,15 +467,15 @@ This error section is stored in a separate file in <code>includes/_errors.md</co
 </tr>
 <tr>
 <td>403</td>
-<td>Forbidden -- The kitten requested is hidden for administrators only.</td>
+<td>Forbidden -- The requested is hidden for administrators only.</td>
 </tr>
 <tr>
 <td>404</td>
-<td>Not Found -- The specified kitten could not be found.</td>
+<td>Not Found -- The specified endpoint could not be found.</td>
 </tr>
 <tr>
 <td>405</td>
-<td>Method Not Allowed -- You tried to access a kitten with an invalid method.</td>
+<td>Method Not Allowed -- You tried to access a endpoint with an invalid method.</td>
 </tr>
 <tr>
 <td>406</td>
@@ -467,15 +483,11 @@ This error section is stored in a separate file in <code>includes/_errors.md</co
 </tr>
 <tr>
 <td>410</td>
-<td>Gone -- The kitten requested has been removed from our servers.</td>
+<td>Gone -- The endpoint requested has been removed from our servers.</td>
 </tr>
 <tr>
-<td>418</td>
-<td>I&#39;m a teapot.</td>
-</tr>
-<tr>
-<td>429</td>
-<td>Too Many Requests -- You&#39;re requesting too many kittens! Slow down!</td>
+<td>422</td>
+<td>Unprocessable Entity -- Depending on the error message that returned, the parameters that pass in could be wrong</td>
 </tr>
 <tr>
 <td>500</td>
