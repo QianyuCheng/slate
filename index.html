@@ -426,6 +426,49 @@ Remember — Only use the id of the article that exists in Northwestern Mutual o
 <p><code>POST https://api-int.nmlv.nml.com/api/v1/nmlv-article-recommender/tfidf_recommend</code></p>
 
 <p><code>POST https://api-int.nmlv.nml.com/api/v1/nmlv-article-recommender/tfidf_recommend</code></p>
+<h3 id='query-parameters-2'>Query Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>organization</td>
+<td>NM</td>
+<td>The organization of articles that the recommender returns. The values to pass in could be either &#39;NM&#39; or &#39;LV&#39;, which represent articles from Northwestern Mutual and LearnVest.</td>
+</tr>
+<tr>
+<td>num_of_rec</td>
+<td>5</td>
+<td>The number of recommendation that the recommender gave out. The number of recommendation could be either 1 to 20 (The maximum number could be changed if needed)</td>
+</tr>
+</tbody></table>
+
+<aside class="success">
+Remember — to include Content-Type and Accepts as application/json in the headers.
+</aside>
+<h3 id='output-json-keys-2'>Output Json Keys</h3>
+<table><thead>
+<tr>
+<th>Keys</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>id</td>
+<td>ID of the articles that are recommended.</td>
+</tr>
+<tr>
+<td>similarity_score</td>
+<td>The cosine similarity score of the recommended article&#39;s bag of words with the object article&#39;s bag of words (between 0 to 1, with 1 the most similar and 0 not similar at all</td>
+</tr>
+<tr>
+<td>text</td>
+<td>Content of the article recommended, for testing purpose, might be removed in the future.</td>
+</tr>
+</tbody></table>
 <h2 id='articlerec-user-interface-debugging-site'>articleRec User Interface Debugging Site</h2>
 <p>The UI that will have drop down of the headlines of the articles in Northwestern Mutual. Choosing one and click the button &#39;get recommendation&#39;, 5 most similar articles&#39; headlines and the similarity scores will show up.</p>
 <h3 id='http'>HTTP</h3>
