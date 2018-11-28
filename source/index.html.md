@@ -25,16 +25,6 @@ This API documentation page was created with [Slate](https://github.com/lord/sla
 
 # Authentication
 
-> To authorize, use this code:
-
-```python
-import kittn
-
-api = kittn.authorize('include-api-key-here')
-```
-
-> Make sure to replace `include-api-key-here` with your API key.
-
 Recommender uses API keys to allow access to the API. Neptune Team created all the API keys for us and since right now Recommender API is only used by Neptune Team, the API keys are not distributed here. 
 
 Recommender expects for the API key to be included in all API requests to the server in a header that looks like the following:
@@ -193,3 +183,33 @@ This endpoint recommended five articles from either Northwestern Mutual or Learn
 
 
 `POST https://api-int.nmlv.nml.com/api/v1/nmlv-article-recommender/tfidf_recommend`
+
+## articleRec User Interface Debugging Site
+
+The UI that will have drop down of the headlines of the articles in Northwestern Mutual. Choosing one and click the button 'get recommendation', 5 most similar articles' headlines and the similarity scores will show up.
+
+### HTTP
+`https://api-int.nmlv.nml.com/api/v1/nmlv-article-recommender/articleRec`
+
+
+`https://api-int.nmlv.nml.com/api/v1/nmlv-article-recommender/articleRec`
+
+## textboxRec User Interface Debugging Site
+
+The UI that will have a textbox for inputing. Input the body of the article and click the button 'get recommendation', 5 most similar articles' headlines and the similarity scores will show up.
+
+### HTTP
+INT: `https://api-int.nmlv.nml.com/api/v1/nmlv-article-recommender/textboxRec`
+
+
+QA: `https://api-qa.nmlv.nml.com/api/v1/nmlv-article-recommender/textboxRec`
+
+## notifyme Endpoint to register with Neptune content API
+
+When `notifyme` endpoint is called by `content-api/destination`, and the body of the request has `contentType: article`, the endpoint will re-fetch data and return immediately with the JSON input for debugging purposes. The endpoint will fit model in the background using thread.
+
+### HTTP
+`https://api-int.nmlv.nml.com/api/v1/nmlv-article-recommender/notifyme`
+
+
+`https://api-qa.nmlv.nml.com/api/v1/nmlv-article-recommender/notifyme`
