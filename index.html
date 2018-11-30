@@ -263,9 +263,8 @@
 
 <p>This API documentation page was created with <a href="https://github.com/lord/slate">Slate</a>.</p>
 <h1 id='authentication'>Authentication</h1>
-<p>Recommender uses API keys to allow access to the API. Neptune Team created all the API keys for us and since right now Recommender API is only used by Neptune Team, the API keys are not distributed here. </p>
-
-<p>Recommender expects for the API key to be included in all API requests to the server in a header that looks like the following:</p>
+<p>Recommender uses API keys to allow access to the API. Neptune Team created all the API keys for us and since right now Recommender API is only used by Neptune Team, the API keys are not distributed here.
+Recommender expects for the API key to be included in all API requests to the server in a header that looks like the following:</p>
 
 <p><code>apikey: include-api-key-here</code></p>
 
@@ -320,9 +319,9 @@ You must replace <code>include-api-key-here</code> with Recommender API key.
 </span></code></pre>
 <p>This endpoint recommended five articles from either Northwestern Mutual or LearnVest, depends on which organization parameter and article id you passed in. For testing purpose, the first article will always be the article that has the id that passed in. </p>
 <h3 id='http-request'>HTTP Request</h3>
-<p><code>GET https://api-int.nmlv.nml.com/api/v1/nmlv-article-recommender/tfidf_recommend</code></p>
+<p>INT: <code>GET https://api-int.nmlv.nml.com/api/v1/nmlv-article-recommender/tfidf_recommend</code></p>
 
-<p><code>GET https://api-qa.nmlv.nml.com/api/v1/nmlv-article-recommender/tfidf_recommend</code></p>
+<p>QA: <code>GET https://api-qa.nmlv.nml.com/api/v1/nmlv-article-recommender/tfidf_recommend</code></p>
 <h3 id='query-parameters'>Query Parameters</h3>
 <table><thead>
 <tr>
@@ -423,9 +422,9 @@ Remember — Only use the id of the article that exists in Northwestern Mutual o
 </span></code></pre>
 <p>This endpoint recommended five articles from either Northwestern Mutual or LearnVest, depends on which organization parameter and article JSON you passed in. For testing purpose, the first article will always be the article that has the id that passed in. </p>
 <h3 id='http-request-2'>HTTP Request</h3>
-<p><code>POST https://api-int.nmlv.nml.com/api/v1/nmlv-article-recommender/tfidf_recommend</code></p>
+<p>INT: <code>POST https://api-int.nmlv.nml.com/api/v1/nmlv-article-recommender/tfidf_recommend</code></p>
 
-<p><code>POST https://api-int.nmlv.nml.com/api/v1/nmlv-article-recommender/tfidf_recommend</code></p>
+<p>QA: <code>POST https://api-qa.nmlv.nml.com/api/v1/nmlv-article-recommender/tfidf_recommend</code></p>
 <h3 id='query-parameters-2'>Query Parameters</h3>
 <table><thead>
 <tr>
@@ -472,9 +471,9 @@ Remember — to include Content-Type and Accepts as application/json in the head
 <h2 id='articlerec-user-interface-debugging-site'>articleRec User Interface Debugging Site</h2>
 <p>The UI that will have drop down of the headlines of the articles in Northwestern Mutual. Choosing one and click the button &#39;get recommendation&#39;, 5 most similar articles&#39; headlines and the similarity scores will show up.</p>
 <h3 id='http'>HTTP</h3>
-<p><code>https://api-int.nmlv.nml.com/api/v1/nmlv-article-recommender/articleRec</code></p>
+<p>INT: <code>https://api-int.nmlv.nml.com/api/v1/nmlv-article-recommender/articleRec</code></p>
 
-<p><code>https://api-int.nmlv.nml.com/api/v1/nmlv-article-recommender/articleRec</code></p>
+<p>QA: <code>https://api-qa.nmlv.nml.com/api/v1/nmlv-article-recommender/articleRec</code></p>
 <h2 id='textboxrec-user-interface-debugging-site'>textboxRec User Interface Debugging Site</h2>
 <p>The UI that will have a textbox for inputing. Input the body of the article and click the button &#39;get recommendation&#39;, 5 most similar articles&#39; headlines and the similarity scores will show up.</p>
 <h3 id='http-2'>HTTP</h3>
@@ -484,9 +483,9 @@ Remember — to include Content-Type and Accepts as application/json in the head
 <h2 id='notifyme-endpoint-to-register-with-neptune-content-api'>notifyme Endpoint to register with Neptune content API</h2>
 <p>When <code>notifyme</code> endpoint is called by <code>content-api/destination</code>, and the body of the request has <code>contentType: article</code>, the endpoint will re-fetch data and return immediately with the JSON input for debugging purposes. The endpoint will fit model in the background using thread.</p>
 <h3 id='http-3'>HTTP</h3>
-<p><code>https://api-int.nmlv.nml.com/api/v1/nmlv-article-recommender/notifyme</code></p>
+<p>INT: <code>https://api-int.nmlv.nml.com/api/v1/nmlv-article-recommender/notifyme</code></p>
 
-<p><code>https://api-qa.nmlv.nml.com/api/v1/nmlv-article-recommender/notifyme</code></p>
+<p>QA: <code>https://api-qa.nmlv.nml.com/api/v1/nmlv-article-recommender/notifyme</code></p>
 <h1 id='errors'>Errors</h1>
 <aside class="notice">
 This error section is in building process.
