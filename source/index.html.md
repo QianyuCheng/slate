@@ -216,7 +216,7 @@ QA: `https://api-qa.nmlv.nml.com/api/v1/nmlv-article-recommender/textboxRec`
 
 ## notifyme Endpoint to register with Neptune content API
 
-When `notifyme` endpoint is called by `content-api/destination`, and the body of the request has `contentType: article`, the endpoint will re-fetch data and return immediately with the JSON input for debugging purposes. The endpoint will fit model in the background using thread.
+When `notifyme` endpoint is called by `content-api/destination`, and the body of the request has `contentType: article`, the endpoint will re-fetch data and return immediately with the JSON input for debugging purposes. The endpoint will fit model in the background using thread. Recommender will check if the api is registered with destination endpoint, if not recommender will send a POST request to destination endpoint to register. 
 
 ### HTTP
 INT: `https://api-int.nmlv.nml.com/api/v1/nmlv-article-recommender/notifyme`
