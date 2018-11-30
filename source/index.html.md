@@ -24,8 +24,7 @@ This API documentation page was created with [Slate](https://github.com/lord/sla
 
 # Authentication
 
-Recommender uses API keys to allow access to the API. Neptune Team created all the API keys for us and since right now Recommender API is only used by Neptune Team, the API keys are not distributed here. 
-
+Recommender uses API keys to allow access to the API. Neptune Team created all the API keys for us and since right now Recommender API is only used by Neptune Team, the API keys are not distributed here.
 Recommender expects for the API key to be included in all API requests to the server in a header that looks like the following:
 
 `apikey: include-api-key-here`
@@ -91,10 +90,9 @@ This endpoint recommended five articles from either Northwestern Mutual or Learn
 
 ### HTTP Request
 
-`GET https://api-int.nmlv.nml.com/api/v1/nmlv-article-recommender/tfidf_recommend`
+INT: `GET https://api-int.nmlv.nml.com/api/v1/nmlv-article-recommender/tfidf_recommend`
 
-
-`GET https://api-qa.nmlv.nml.com/api/v1/nmlv-article-recommender/tfidf_recommend`
+QA: `GET https://api-qa.nmlv.nml.com/api/v1/nmlv-article-recommender/tfidf_recommend`
 
 ### Query Parameters
 
@@ -115,8 +113,6 @@ Keys | Description
 id | ID of the articles that are recommended. 
 similarity_score | The cosine similarity score of the recommended article's bag of words with the object article's bag of words (between 0 to 1, with 1 the most similar and 0 not similar at all
 text |Content of the article recommended, for testing purpose, might be removed in the future. 
-
-
 
 ## POST Article Json and Return Recommender Articles
 
@@ -139,7 +135,6 @@ response = requests.post('https://api-int.nmlv.nml.com/api/v1/nmlv-article-recom
 
 recommended_json = json.loads(response.content)
 ```
-
 
 > The above command returns JSON structured like this:
 
@@ -178,10 +173,9 @@ This endpoint recommended five articles from either Northwestern Mutual or Learn
 
 ### HTTP Request
 
-`POST https://api-int.nmlv.nml.com/api/v1/nmlv-article-recommender/tfidf_recommend`
+INT: `POST https://api-int.nmlv.nml.com/api/v1/nmlv-article-recommender/tfidf_recommend`
 
-
-`POST https://api-int.nmlv.nml.com/api/v1/nmlv-article-recommender/tfidf_recommend`
+QA: `POST https://api-qa.nmlv.nml.com/api/v1/nmlv-article-recommender/tfidf_recommend`
 
 ### Query Parameters
 
@@ -207,10 +201,9 @@ text |Content of the article recommended, for testing purpose, might be removed 
 The UI that will have drop down of the headlines of the articles in Northwestern Mutual. Choosing one and click the button 'get recommendation', 5 most similar articles' headlines and the similarity scores will show up.
 
 ### HTTP
-`https://api-int.nmlv.nml.com/api/v1/nmlv-article-recommender/articleRec`
+INT: `https://api-int.nmlv.nml.com/api/v1/nmlv-article-recommender/articleRec`
 
-
-`https://api-int.nmlv.nml.com/api/v1/nmlv-article-recommender/articleRec`
+QA: `https://api-qa.nmlv.nml.com/api/v1/nmlv-article-recommender/articleRec`
 
 ## textboxRec User Interface Debugging Site
 
@@ -219,7 +212,6 @@ The UI that will have a textbox for inputing. Input the body of the article and 
 ### HTTP
 INT: `https://api-int.nmlv.nml.com/api/v1/nmlv-article-recommender/textboxRec`
 
-
 QA: `https://api-qa.nmlv.nml.com/api/v1/nmlv-article-recommender/textboxRec`
 
 ## notifyme Endpoint to register with Neptune content API
@@ -227,7 +219,6 @@ QA: `https://api-qa.nmlv.nml.com/api/v1/nmlv-article-recommender/textboxRec`
 When `notifyme` endpoint is called by `content-api/destination`, and the body of the request has `contentType: article`, the endpoint will re-fetch data and return immediately with the JSON input for debugging purposes. The endpoint will fit model in the background using thread.
 
 ### HTTP
-`https://api-int.nmlv.nml.com/api/v1/nmlv-article-recommender/notifyme`
+INT: `https://api-int.nmlv.nml.com/api/v1/nmlv-article-recommender/notifyme`
 
-
-`https://api-qa.nmlv.nml.com/api/v1/nmlv-article-recommender/notifyme`
+QA: `https://api-qa.nmlv.nml.com/api/v1/nmlv-article-recommender/notifyme`
