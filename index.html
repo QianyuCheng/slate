@@ -481,7 +481,7 @@ Remember — to include Content-Type and Accepts as application/json in the head
 
 <p>QA: <code>https://api-qa.nmlv.nml.com/api/v1/nmlv-article-recommender/textboxRec</code></p>
 <h2 id='notifyme-endpoint-to-register-with-neptune-content-api'>notifyme Endpoint to register with Neptune content API</h2>
-<p>When <code>notifyme</code> endpoint is called by <code>content-api/destination</code>, and the body of the request has <code>contentType: article</code>, the endpoint will re-fetch data and return immediately with the JSON input for debugging purposes. The endpoint will fit model in the background using thread.</p>
+<p>When <code>notifyme</code> endpoint is called by <code>content-api/destination</code>, and the body of the request has <code>contentType: article</code>, the endpoint will re-fetch data and return immediately with the JSON input for debugging purposes. The endpoint will fit model in the background using thread. Recommender will check if the api is registered with destination endpoint, if not recommender will send a POST request to destination endpoint to register. </p>
 <h3 id='http-3'>HTTP</h3>
 <p>INT: <code>https://api-int.nmlv.nml.com/api/v1/nmlv-article-recommender/notifyme</code></p>
 
