@@ -227,6 +227,13 @@ QA: `https://api-qa.nmlv.nml.com/api/v1/nmlv-article-recommender/notifyme`
 
 The UI that have TF-IDF document vectors visualization for NM articles. User could interact with the visualization by choosing Perplexity and learning rate of T-SNE. Clicking on the points, the title of article will show up, and recommendations will pop up at the end of page. The color of the points corresponds to the parent section of articles, and similar articles are closer in the document vectors map. we can also see that points in same color are closer in the map as well.
 
+T-SNE is a dimension reduction method, it's mainly used for visualization since the document vectors' dimension is the vocabulary, so it's hard to see the distance between articles in 2d spaces, but with T-SNE all document vectors are mapped to a 2d spaces
+Perplexity in T-SNE is a guess about the number of close neighbors each point has, mainly it's between 5 and 50
+
+T-SNE's algorithm is trying to simulate a distribution on low dimension space that have similar distance for those points in high dimension space, so the articles that are similar in their word frequency (tf-idf document vectors) will also be similar in the (x,y) axis on T-SNE's 2d map.
+
+Rephrased from wiki and here if wanna take a closer look: https://distill.pub/2016/misread-tsne/
+
 ### HTTP
 INT: `https://api-int.nmlv.nml.com/api/v1/nmlv-article-recommender/dash/dash`
 
