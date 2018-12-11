@@ -216,9 +216,18 @@ QA: `https://api-qa.nmlv.nml.com/api/v1/nmlv-article-recommender/textboxRec`
 
 ## notifyme Endpoint to register with Neptune content API
 
-When `notifyme` endpoint is called by `content-api/destination`, and the body of the request has `contentType: article`, the endpoint will re-fetch data and return immediately with the JSON input for debugging purposes. The endpoint will fit model in the background using thread. Recommender will check if the api is registered with destination endpoint, if not recommender will send a POST request to destination endpoint to register. 
+When `notifyme` endpoint is called by `content-api/destination`, and the body of the request has `contentType: article`, the endpoint will re-fetch data and return immediately with the JSON input for debugging purposes. The endpoint will fit model in the background using thread. Recommender will check if the api is registered with destination endpoint, if not recommender will send a POST request to destination endpoint to register.
 
 ### HTTP
 INT: `https://api-int.nmlv.nml.com/api/v1/nmlv-article-recommender/notifyme`
 
 QA: `https://api-qa.nmlv.nml.com/api/v1/nmlv-article-recommender/notifyme`
+
+## dash T-SNE visualization User Interface Debugging Site
+
+The UI that have TF-IDF document vectors visualization for NM articles. User could interact with the visualization by choosing Perplexity and learning rate of T-SNE. Clicking on the points, the title of article will show up, and recommendations will pop up at the end of page. The color of the points corresponds to the parent section of articles, and similar articles are closer in the document vectors map. we can also see that points in same color are closer in the map as well.
+
+### HTTP
+INT: `https://api-int.nmlv.nml.com/api/v1/nmlv-article-recommender/dash/dash`
+
+QA: `https://api-qa.nmlv.nml.com/api/v1/nmlv-article-recommender/dash/dash`
